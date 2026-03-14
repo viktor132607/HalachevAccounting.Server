@@ -1,0 +1,6 @@
+@HalachevAccounting_HostAddress = http://localhost:5100
+
+GET {{HalachevAccounting_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,13 @@
+C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting.Domain\bin\Debug\net10.0\HalachevAccounting.Domain.deps.json
+C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting.Domain\bin\Debug\net10.0\HalachevAccounting.Domain.dll
+C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting.Domain\bin\Debug\net10.0\HalachevAccounting.Domain.pdb
+C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting.Domain\obj\Debug\net10.0\HalachevAccounting.Domain.csproj.AssemblyReference.cache
+C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting.Domain\obj\Debug\net10.0\HalachevAccounting.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting.Domain\obj\Debug\net10.0\HalachevAccounting.Domain.AssemblyInfoInputs.cache
+C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting.Domain\obj\Debug\net10.0\HalachevAccounting.Domain.AssemblyInfo.cs
+C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting.Domain\obj\Debug\net10.0\HalachevAccounting.Domain.csproj.CoreCompileInputs.cache
+C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting.Domain\obj\Debug\net10.0\HalachevAccounting.Domain.sourcelink.json
+C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting.Domain\obj\Debug\net10.0\HalachevAccounting.Domain.dll
+C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting.Domain\obj\Debug\net10.0\refint\HalachevAccounting.Domain.dll
+C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting.Domain\obj\Debug\net10.0\HalachevAccounting.Domain.pdb
+C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting.Domain\obj\Debug\net10.0\ref\HalachevAccounting.Domain.dll

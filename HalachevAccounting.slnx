@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="HalachevAccounting.Domain/HalachevAccounting.Domain.csproj" />
+  <Project Path="HalachevAccounting.Infrastructure/HalachevAccounting.Infrastructure.csproj" />
+  <Project Path="HalachevAccounting/HalachevAccounting.Api.csproj" />
+</Solution>
