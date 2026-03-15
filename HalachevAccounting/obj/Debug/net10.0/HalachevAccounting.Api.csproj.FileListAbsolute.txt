@@ -1,3 +1,4 @@
+C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting\bin\Debug\net10.0\spa.proxy.json
 C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting\bin\Debug\net10.0\appsettings.Development.json
 C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting\bin\Debug\net10.0\appsettings.json
 C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting\bin\Debug\net10.0\HalachevAccounting.Api.staticwebassets.endpoints.json
@@ -11,6 +12,7 @@ C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting\bin\Debug\net1
 C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting\bin\Debug\net10.0\Humanizer.dll
 C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting\bin\Debug\net10.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting\bin\Debug\net10.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting\bin\Debug\net10.0\Microsoft.AspNetCore.SpaProxy.dll
 C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting\bin\Debug\net10.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting\bin\Debug\net10.0\Microsoft.Bcl.Cryptography.dll
 C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting\bin\Debug\net10.0\Microsoft.Build.Framework.dll
@@ -142,6 +144,7 @@ C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting\bin\Debug\net1
 C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting\bin\Debug\net10.0\HalachevAccounting.Domain.pdb
 C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting\bin\Debug\net10.0\HalachevAccounting.Infrastructure.pdb
 C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting\obj\Debug\net10.0\HalachevAccounting.Api.csproj.AssemblyReference.cache
+C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting\obj\Debug\net10.0\spa.proxy.json
 C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting\obj\Debug\net10.0\rpswa.dswa.cache.json
 C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting\obj\Debug\net10.0\HalachevAccounting.Api.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\vikto\source\repos\HalachevAccounting\HalachevAccounting\obj\Debug\net10.0\HalachevAccounting.Api.AssemblyInfoInputs.cache

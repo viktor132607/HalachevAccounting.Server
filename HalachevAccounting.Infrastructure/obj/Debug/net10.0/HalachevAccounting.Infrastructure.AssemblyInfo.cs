@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HalachevAccounting.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d124a147f145c94d507bddb8b00e3c609f9f5da1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+46d4bca0d2dc12b3deb9eeeeaf6bb8db267f5550")]
 [assembly: System.Reflection.AssemblyProductAttribute("HalachevAccounting.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HalachevAccounting.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
