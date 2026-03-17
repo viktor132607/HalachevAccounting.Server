@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\vikto\\source\\repos\\HalachevAccounting\\HalachevAccounting.Domain\\HalachevAccounting.Domain.csproj": {}
+    "C:\\Users\\vikto\\source\\repos\\HalachevAccounting.Server\\HalachevAccounting.Domain\\HalachevAccounting.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\vikto\\source\\repos\\HalachevAccounting\\HalachevAccounting.Domain\\HalachevAccounting.Domain.csproj": {
+    "C:\\Users\\vikto\\source\\repos\\HalachevAccounting.Server\\HalachevAccounting.Domain\\HalachevAccounting.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vikto\\source\\repos\\HalachevAccounting\\HalachevAccounting.Domain\\HalachevAccounting.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\vikto\\source\\repos\\HalachevAccounting.Server\\HalachevAccounting.Domain\\HalachevAccounting.Domain.csproj",
         "projectName": "HalachevAccounting.Domain",
-        "projectPath": "C:\\Users\\vikto\\source\\repos\\HalachevAccounting\\HalachevAccounting.Domain\\HalachevAccounting.Domain.csproj",
+        "projectPath": "C:\\Users\\vikto\\source\\repos\\HalachevAccounting.Server\\HalachevAccounting.Domain\\HalachevAccounting.Domain.csproj",
         "packagesPath": "C:\\Users\\vikto\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vikto\\source\\repos\\HalachevAccounting\\HalachevAccounting.Domain\\obj\\",
+        "outputPath": "C:\\Users\\vikto\\source\\repos\\HalachevAccounting.Server\\HalachevAccounting.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "G:\\Visual studio 3\\NuGetPackages"
@@ -50,6 +50,10 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[10.0.5, )"
+            },
             "Microsoft.Extensions.Identity.Stores": {
               "target": "Package",
               "version": "[10.0.5, )"

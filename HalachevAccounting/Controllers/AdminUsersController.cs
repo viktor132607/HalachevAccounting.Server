@@ -12,6 +12,13 @@ public class AdminUsersController : ControllerBase
 {
 	private readonly UserManager<ApplicationUser> _userManager;
 
+	private readonly string[] protectedAdmins =
+	{
+		"iliev132607@gmail.com",
+		"nthalachev@gmail.com",
+		"nikolahalachev2811@gmail.com"
+	};
+
 	public AdminUsersController(UserManager<ApplicationUser> userManager)
 	{
 		_userManager = userManager;
@@ -54,6 +61,9 @@ public class AdminUsersController : ControllerBase
 		if (user == null)
 			return NotFound();
 
+		if (protectedAdmins.Contains(user.Email?.ToLower()))
+			return BadRequest("Protected admin account.");
+
 		await _userManager.RemoveFromRoleAsync(user, "Admin");
 
 		return Ok();
@@ -66,6 +76,9 @@ public class AdminUsersController : ControllerBase
 
 		if (user == null)
 			return NotFound();
+
+		if (protectedAdmins.Contains(user.Email?.ToLower()))
+			return BadRequest("Protected admin account.");
 
 		user.IsBlocked = true;
 		await _userManager.UpdateAsync(user);
@@ -85,5 +98,24 @@ public class AdminUsersController : ControllerBase
 		await _userManager.UpdateAsync(user);
 
 		return Ok();
+	}
+
+	[HttpDelete("{id}")]
+	public async Task<IActionResult> DeleteUser(string id)
+	{
+		var user = await _userManager.FindByIdAsync(id);
+
+		if (user == null)
+			return NotFound();
+
+		if (protectedAdmins.Contains(user.Email?.ToLower()))
+			return BadRequest("Protected admin account.");
+
+		var result = await _userManager.DeleteAsync(user);
+
+		if (!result.Succeeded)
+			return BadRequest(result.Errors);
+
+		return NoContent();
 	}
 }
