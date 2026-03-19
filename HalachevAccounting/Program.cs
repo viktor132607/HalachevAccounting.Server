@@ -44,7 +44,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
 	options.Cookie.HttpOnly = true;
 	options.Cookie.Name = "HalachevAccounting.Auth";
-	options.Cookie.SameSite = SameSiteMode.None;
+	options.Cookie.SameSite = SameSiteMode.Lax;
 	options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 	options.Cookie.IsEssential = true;
 	options.LoginPath = "/identity/login";
