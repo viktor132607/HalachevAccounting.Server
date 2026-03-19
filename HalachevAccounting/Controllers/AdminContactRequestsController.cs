@@ -28,8 +28,8 @@ public class AdminContactRequestsController : ControllerBase
 		return Ok(requests);
 	}
 
-	[HttpGet("{id}")]
-	public async Task<IActionResult> Get(int id)
+	[HttpGet("{id:guid}")]
+	public async Task<IActionResult> Get(Guid id)
 	{
 		var request = await _context.ContactRequests.FindAsync(id);
 
@@ -39,8 +39,8 @@ public class AdminContactRequestsController : ControllerBase
 		return Ok(request);
 	}
 
-	[HttpPut("{id}/comment")]
-	public async Task<IActionResult> AddAdminComment(int id, [FromBody] string comment)
+	[HttpPut("{id:guid}/comment")]
+	public async Task<IActionResult> AddAdminComment(Guid id, [FromBody] string comment)
 	{
 		var request = await _context.ContactRequests.FindAsync(id);
 
@@ -48,14 +48,15 @@ public class AdminContactRequestsController : ControllerBase
 			return NotFound();
 
 		request.AdminComment = comment;
+		request.UpdatedAtUtc = DateTime.UtcNow;
 
 		await _context.SaveChangesAsync();
 
 		return Ok();
 	}
 
-	[HttpPut("{id}/status")]
-	public async Task<IActionResult> UpdateStatus(int id, [FromBody] string status)
+	[HttpPut("{id:guid}/status")]
+	public async Task<IActionResult> UpdateStatus(Guid id, [FromBody] string status)
 	{
 		var request = await _context.ContactRequests.FindAsync(id);
 
@@ -66,6 +67,7 @@ public class AdminContactRequestsController : ControllerBase
 			return BadRequest("Invalid status.");
 
 		request.Status = parsedStatus;
+		request.UpdatedAtUtc = DateTime.UtcNow;
 
 		await _context.SaveChangesAsync();
 

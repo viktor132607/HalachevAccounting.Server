@@ -27,8 +27,13 @@ public class ContactRequestsController : ControllerBase
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> Create(CreateContactRequestDto dto)
+	public async Task<IActionResult> Create([FromBody] CreateContactRequestDto dto)
 	{
+		var ownerEmail = _configuration["Email:OwnerEmail"];
+
+		if (string.IsNullOrWhiteSpace(ownerEmail))
+			return StatusCode(500, new { message = "Owner email is not configured." });
+
 		var entity = new ContactRequest
 		{
 			Id = Guid.NewGuid(),
@@ -43,8 +48,6 @@ public class ContactRequestsController : ControllerBase
 		_context.ContactRequests.Add(entity);
 		await _context.SaveChangesAsync();
 
-		var ownerEmail = _configuration["Email:OwnerEmail"];
-
 		var body = $@"
 <h3>New contact request</h3>
 <p><b>Name:</b> {dto.Name}</p>
@@ -56,19 +59,23 @@ public class ContactRequestsController : ControllerBase
 
 		try
 		{
-			await _emailService.SendAsync(ownerEmail!, "New contact request", body);
+			await _emailService.SendAsync(ownerEmail, "New contact request", body);
 
 			_context.EmailLogs.Add(new EmailLog
 			{
 				Id = Guid.NewGuid(),
 				ContactRequestId = entity.Id,
-				ToEmail = ownerEmail!,
+				ToEmail = ownerEmail,
 				Subject = "New contact request",
 				Body = body,
 				IsSent = true,
 				SentAtUtc = DateTime.UtcNow,
 				CreatedAtUtc = DateTime.UtcNow
 			});
+
+			await _context.SaveChangesAsync();
+
+			return Ok(new { message = "Request submitted successfully." });
 		}
 		catch (Exception ex)
 		{
@@ -76,18 +83,21 @@ public class ContactRequestsController : ControllerBase
 			{
 				Id = Guid.NewGuid(),
 				ContactRequestId = entity.Id,
-				ToEmail = ownerEmail!,
+				ToEmail = ownerEmail,
 				Subject = "New contact request",
 				Body = body,
 				IsSent = false,
-				ErrorMessage = ex.Message,
+				ErrorMessage = ex.ToString(),
 				CreatedAtUtc = DateTime.UtcNow
 			});
+
+			await _context.SaveChangesAsync();
+
+			return StatusCode(500, new
+			{
+				message = "Contact request saved, but email sending failed."
+			});
 		}
-
-		await _context.SaveChangesAsync();
-
-		return Ok(new { message = "Request submitted successfully." });
 	}
 
 	[HttpGet]
@@ -111,7 +121,7 @@ public class ContactRequestsController : ControllerBase
 		return Ok(items);
 	}
 
-	[HttpGet("{id}")]
+	[HttpGet("{id:guid}")]
 	public async Task<ActionResult<ContactRequest>> GetById(Guid id)
 	{
 		var entity = await _context.ContactRequests.FirstOrDefaultAsync(x => x.Id == id);
@@ -122,7 +132,7 @@ public class ContactRequestsController : ControllerBase
 		return Ok(entity);
 	}
 
-	[HttpPut("{id}")]
+	[HttpPut("{id:guid}")]
 	public async Task<IActionResult> Update(Guid id, UpdateContactRequestDto dto)
 	{
 		var entity = await _context.ContactRequests.FindAsync(id);
