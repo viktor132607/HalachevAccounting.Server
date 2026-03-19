@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: halachev-accounting-api
+    runtime: docker
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: ASPNETCORE_URLS
+        value: http://+:10000
+      - key: ASPNETCORE_ENVIRONMENT
+        value: "Production"
+      - key: ASPNETCORE_FORWARDEDHEADERS_ENABLED
+        value: "true"
+      - key: ConnectionStrings__DefaultConnection
+        sync: false
+      - key: Frontend__Url
+        value: https://nhalachev.com
+      - key: Email__SmtpHost
+        sync: false
+      - key: Email__Username
+        sync: false
+      - key: Email__Password
+        sync: false
+      - key: Seed__AdminPassword
+        sync: false

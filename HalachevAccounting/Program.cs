@@ -2,11 +2,15 @@ using HalachevAccounting.Application.Interfaces;
 using HalachevAccounting.Domain.Entities;
 using HalachevAccounting.Infrastructure.Data;
 using HalachevAccounting.Infrastructure.Services;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
+builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 
 builder.Services.AddControllers()
 	.AddJsonOptions(options =>
@@ -71,19 +75,24 @@ builder.Services.ConfigureApplicationCookie(options =>
 	};
 });
 
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+	options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+	options.KnownNetworks.Clear();
+	options.KnownProxies.Clear();
+});
+
 builder.Services.AddCors(options =>
 {
 	options.AddPolicy("AllowFrontend", policy =>
 	{
 		policy
-			.SetIsOriginAllowed(origin =>
-			{
-				if (!Uri.TryCreate(origin, UriKind.Absolute, out var uri))
-					return false;
-
-				return uri.Host.Equals("localhost", StringComparison.OrdinalIgnoreCase)
-					|| uri.Host.Equals("127.0.0.1", StringComparison.OrdinalIgnoreCase);
-			})
+			.WithOrigins(
+				"http://localhost:5173",
+				"http://localhost:5175",
+				"https://nhalachev.com",
+				"https://www.nhalachev.com"
+			)
 			.AllowAnyHeader()
 			.AllowAnyMethod()
 			.AllowCredentials();
@@ -91,6 +100,8 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+app.UseForwardedHeaders();
 
 using (var scope = app.Services.CreateScope())
 {
@@ -103,7 +114,6 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
 app.UseCors("AllowFrontend");
 
 app.UseAuthentication();
