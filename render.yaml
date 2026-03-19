@@ -3,6 +3,7 @@ services:
     name: halachev-accounting-api
     runtime: docker
     plan: free
+    dockerfilePath: ./Dockerfile
     autoDeploy: true
     envVars:
       - key: ASPNETCORE_URLS

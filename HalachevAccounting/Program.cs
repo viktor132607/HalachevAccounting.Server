@@ -46,6 +46,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 	options.Cookie.Name = "HalachevAccounting.Auth";
 	options.Cookie.SameSite = SameSiteMode.None;
 	options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+	options.Cookie.IsEssential = true;
 	options.LoginPath = "/identity/login";
 	options.AccessDeniedPath = "/identity/login";
 	options.SlidingExpiration = true;
@@ -82,17 +83,26 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 	options.KnownProxies.Clear();
 });
 
+var frontendUrl = builder.Configuration["Frontend:Url"]?.TrimEnd('/');
+var allowedOrigins = new List<string>
+{
+	"http://localhost:5173",
+	"http://localhost:5175",
+	"https://nhalachev.com",
+	"https://www.nhalachev.com"
+};
+
+if (!string.IsNullOrWhiteSpace(frontendUrl) && !allowedOrigins.Contains(frontendUrl, StringComparer.OrdinalIgnoreCase))
+{
+	allowedOrigins.Add(frontendUrl);
+}
+
 builder.Services.AddCors(options =>
 {
 	options.AddPolicy("AllowFrontend", policy =>
 	{
 		policy
-			.WithOrigins(
-				"http://localhost:5173",
-				"http://localhost:5175",
-				"https://nhalachev.com",
-				"https://www.nhalachev.com"
-			)
+			.WithOrigins(allowedOrigins.ToArray())
 			.AllowAnyHeader()
 			.AllowAnyMethod()
 			.AllowCredentials();
@@ -102,6 +112,11 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 app.UseForwardedHeaders();
+
+if (!app.Environment.IsDevelopment())
+{
+	app.UseHsts();
+}
 
 using (var scope = app.Services.CreateScope())
 {

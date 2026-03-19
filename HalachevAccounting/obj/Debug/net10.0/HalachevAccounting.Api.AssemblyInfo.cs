@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HalachevAccounting.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+be839443d24b5291507049ce148b80e9beabc1ce")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7d1111fb1860cf1085aaa35c26dce2ab42a84260")]
 [assembly: System.Reflection.AssemblyProductAttribute("HalachevAccounting.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HalachevAccounting.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
