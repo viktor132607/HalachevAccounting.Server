@@ -1,5 +1,32 @@
+# Visual Studio
 .vs/
-bin/
-obj/
 *.user
 *.suo
+*.userosscache
+*.sln.docstates
+
+# Build
+bin/
+obj/
+
+# Node
+node_modules/
+dist/
+build/
+
+# Env
+.env
+.env.*
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.override.yml
+
+# Misc
+*.cache
