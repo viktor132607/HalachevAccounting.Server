@@ -3,6 +3,7 @@ using HalachevAccounting.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace HalachevAccounting.Controllers;
 
@@ -27,6 +28,7 @@ public class AuthController : ControllerBase
 		_configuration = configuration;
 	}
 
+	[EnableRateLimiting("auth")]
 	[HttpPost("register")]
 	public async Task<IActionResult> Register([FromBody] RegisterRequest model)
 	{
@@ -117,6 +119,7 @@ public class AuthController : ControllerBase
 		return Redirect($"{frontendUrl}/identity/login?confirmed=1");
 	}
 
+	[EnableRateLimiting("auth")]
 	[HttpPost("login")]
 	public async Task<IActionResult> Login([FromBody] LoginRequest model)
 	{
@@ -137,7 +140,10 @@ public class AuthController : ControllerBase
 			user.UserName!,
 			model.Password,
 			isPersistent: false,
-			lockoutOnFailure: false);
+			lockoutOnFailure: true);
+
+		if (result.IsLockedOut)
+			return StatusCode(StatusCodes.Status423Locked, new { message = "Account temporarily locked after repeated failed sign-in attempts." });
 
 		if (!result.Succeeded)
 			return Unauthorized(new { message = "Invalid email or password." });
@@ -190,6 +196,7 @@ public class AuthController : ControllerBase
 		});
 	}
 
+	[EnableRateLimiting("auth")]
 	[HttpPost("forgot-password")]
 	public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest model)
 	{
@@ -232,6 +239,7 @@ public class AuthController : ControllerBase
 			$"{frontendUrl}/identity/reset-password?email={Uri.EscapeDataString(email)}&token={Uri.EscapeDataString(token)}");
 	}
 
+	[EnableRateLimiting("auth")]
 	[HttpPost("reset-password")]
 	public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest model)
 	{
@@ -266,6 +274,7 @@ public class AuthController : ControllerBase
 	}
 
 	[Authorize]
+	[EnableRateLimiting("auth")]
 	[HttpPost("change-password")]
 	public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest model)
 	{
