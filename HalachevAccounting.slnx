@@ -25,4 +25,5 @@
   <Project Path="HalachevAccounting.Domain/HalachevAccounting.Domain.csproj" />
   <Project Path="HalachevAccounting.Infrastructure/HalachevAccounting.Infrastructure.csproj" />
   <Project Path="HalachevAccounting/HalachevAccounting.Api.csproj" />
+  <Project Path="HalachevAccounting.Tests/HalachevAccounting.Tests.csproj" />
 </Solution>
