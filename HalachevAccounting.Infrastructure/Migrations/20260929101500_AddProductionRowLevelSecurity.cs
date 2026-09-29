@@ -1,9 +1,13 @@
+using HalachevAccounting.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace HalachevAccounting.Infrastructure.Migrations;
 
+[DbContext(typeof(AppDbContext))]
+[Migration("20260929101500_AddProductionRowLevelSecurity")]
 public partial class AddProductionRowLevelSecurity : Migration
 {
     protected override void Up(MigrationBuilder migrationBuilder)
