@@ -1,15 +1,20 @@
+previews:
+  generation: off
+
 services:
   - type: web
     name: halachev-accounting-api
     runtime: docker
     plan: free
+    region: frankfurt
     dockerfilePath: ./Dockerfile
-    autoDeploy: true
+    healthCheckPath: /health/ready
+    autoDeployTrigger: checksPass
     envVars:
       - key: ASPNETCORE_URLS
         value: http://+:10000
       - key: ASPNETCORE_ENVIRONMENT
-        value: "Production"
+        value: Production
       - key: ASPNETCORE_FORWARDEDHEADERS_ENABLED
         value: "true"
       - key: ConnectionStrings__DefaultConnection
@@ -23,4 +28,8 @@ services:
       - key: Email__Password
         sync: false
       - key: Seed__AdminPassword
+        sync: false
+      - key: Seed__DemoData
+        value: "false"
+      - key: SENTRY_DSN
         sync: false
