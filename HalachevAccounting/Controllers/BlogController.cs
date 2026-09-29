@@ -17,6 +17,7 @@ public class BlogController : ControllerBase
 		_context = context;
 	}
 
+	[ResponseCache(Duration = 60, Location = ResponseCacheLocation.Any, NoStore = false)]
 	[HttpGet]
 	public async Task<IActionResult> GetPosts()
 	{
@@ -28,6 +29,7 @@ public class BlogController : ControllerBase
 		return Ok(posts);
 	}
 
+	[ResponseCache(Duration = 60, Location = ResponseCacheLocation.Any, NoStore = false)]
 	[HttpGet("{id}")]
 	public async Task<IActionResult> GetPost(int id)
 	{
