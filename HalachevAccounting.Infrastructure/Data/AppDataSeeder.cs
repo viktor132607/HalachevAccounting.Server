@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using ReparoNow.Domain.Entities;
 
 namespace HalachevAccounting.Infrastructure.Data;
@@ -21,9 +20,12 @@ public static class AppDataSeeder
 		await SeedRoles(roleManager);
 		await SeedAdmins(userManager, configuration);
 
-		var environment = scope.ServiceProvider.GetRequiredService<IHostEnvironment>();
+		var environmentName =
+			configuration["ASPNETCORE_ENVIRONMENT"] ??
+			Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
 		var seedDemoData =
-			environment.IsDevelopment() ||
+			string.Equals(environmentName, "Development", StringComparison.OrdinalIgnoreCase) ||
 			configuration.GetValue<bool>("Seed:DemoData");
 
 		if (seedDemoData)
