@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using ReparoNow.Domain.Entities;
 
 namespace HalachevAccounting.Infrastructure.Data;
@@ -19,8 +20,17 @@ public static class AppDataSeeder
 
 		await SeedRoles(roleManager);
 		await SeedAdmins(userManager, configuration);
-		await SeedTestUsers(userManager, configuration);
-		await SeedServiceRequests(services);
+
+		var environment = scope.ServiceProvider.GetRequiredService<IHostEnvironment>();
+		var seedDemoData =
+			environment.IsDevelopment() ||
+			configuration.GetValue<bool>("Seed:DemoData");
+
+		if (seedDemoData)
+		{
+			await SeedTestUsers(userManager, configuration);
+			await SeedServiceRequests(services);
+		}
 	}
 
 	private static async Task SeedRoles(RoleManager<IdentityRole> roleManager)
@@ -38,7 +48,12 @@ public static class AppDataSeeder
 
 	private static async Task SeedAdmins(UserManager<ApplicationUser> userManager, IConfiguration configuration)
 	{
-		var adminPassword = configuration["Seed:AdminPassword"] ?? "Admin123!";
+		var adminPassword = configuration["Seed:AdminPassword"];
+
+		// Production never falls back to a known password. The bootstrap secret is
+		// required only when a configured admin account does not exist yet.
+		if (string.IsNullOrWhiteSpace(adminPassword))
+			return;
 
 		string[] adminEmails =
 		{
@@ -62,38 +77,16 @@ public static class AppDataSeeder
 				};
 
 				var createResult = await userManager.CreateAsync(user, adminPassword);
-
 				if (!createResult.Succeeded)
 					continue;
 			}
-			else
-			{
-				user.EmailConfirmed = true;
-				user.IsBlocked = false;
-				await userManager.UpdateAsync(user);
 
-				var hasPassword = await userManager.HasPasswordAsync(user);
-
-				if (hasPassword)
-				{
-					var resetToken = await userManager.GeneratePasswordResetTokenAsync(user);
-					await userManager.ResetPasswordAsync(user, resetToken, adminPassword);
-				}
-				else
-				{
-					await userManager.AddPasswordAsync(user, adminPassword);
-				}
-			}
-
+			// Never reset an existing administrator password during application startup.
 			if (!await userManager.IsInRoleAsync(user, "Admin"))
-			{
 				await userManager.AddToRoleAsync(user, "Admin");
-			}
 
 			if (await userManager.IsInRoleAsync(user, "User"))
-			{
 				await userManager.RemoveFromRoleAsync(user, "User");
-			}
 		}
 	}
 
