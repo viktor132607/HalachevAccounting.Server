@@ -3,6 +3,8 @@ using HalachevAccounting.Application.Interfaces;
 using HalachevAccounting.Domain.Entities;
 using HalachevAccounting.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using ReparoNow.Domain.Entities;
 
@@ -26,6 +28,8 @@ public class ContactRequestsController : ControllerBase
 		_configuration = configuration;
 	}
 
+	[EnableRateLimiting("contact")]
+	[AllowAnonymous]
 	[HttpPost]
 	public async Task<IActionResult> Create([FromBody] CreateContactRequestDto dto)
 	{
@@ -87,7 +91,7 @@ public class ContactRequestsController : ControllerBase
 				Subject = "New contact request",
 				Body = body,
 				IsSent = false,
-				ErrorMessage = ex.ToString(),
+				ErrorMessage = ex.Message,
 				CreatedAtUtc = DateTime.UtcNow
 			});
 
@@ -100,6 +104,7 @@ public class ContactRequestsController : ControllerBase
 		}
 	}
 
+	[Authorize(Roles = "Admin")]
 	[HttpGet]
 	public async Task<ActionResult<IEnumerable<ContactRequestListDto>>> GetAll()
 	{
@@ -121,6 +126,7 @@ public class ContactRequestsController : ControllerBase
 		return Ok(items);
 	}
 
+	[Authorize(Roles = "Admin")]
 	[HttpGet("{id:guid}")]
 	public async Task<ActionResult<ContactRequest>> GetById(Guid id)
 	{
@@ -132,6 +138,7 @@ public class ContactRequestsController : ControllerBase
 		return Ok(entity);
 	}
 
+	[Authorize(Roles = "Admin")]
 	[HttpPut("{id:guid}")]
 	public async Task<IActionResult> Update(Guid id, UpdateContactRequestDto dto)
 	{
