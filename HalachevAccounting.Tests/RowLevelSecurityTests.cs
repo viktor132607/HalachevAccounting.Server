@@ -1,3 +1,4 @@
+using Xunit;
 using HalachevAccounting.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
